@@ -23,6 +23,6 @@ jobs:
 
       - name: Atomic Deploy
         run: |
-          ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} << EOF
+          ssh ${{ secrets.DEPLOY_USERNAME }}@${{ secrets.DEPLOY_HOST }} -p ${{ secrets.DEPLOY_PORT }} << EOF
             cd ${{ secrets.DEPLOY_FILE_PATH }} && (git -C homelab pull || git clone git@github.com:ImLunaHey/homelab.git) && ./.scripts/env.sh && docker compose up -d
           EOF
