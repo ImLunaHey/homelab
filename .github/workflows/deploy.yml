@@ -10,11 +10,11 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Generate env from secrets
-        run: (echo "MY_DOMAIN=${{ secrets.MY_DOMAIN }}\n"; cat .env) > .env
-
       - name: Checkout repo
         uses: actions/checkout@v3
+
+      - name: Generate env from secrets
+        run: (echo "MY_DOMAIN=${{ secrets.MY_DOMAIN }}\n"; cat .env) > .env
 
       - name: Push to server
         uses: appleboy/ssh-action@master
