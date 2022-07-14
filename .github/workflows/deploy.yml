@@ -13,9 +13,6 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Generate env from secrets
-        run: (echo "MY_DOMAIN=${{ secrets.MY_DOMAIN }}\n"; cat .env) > .full_env && mv .full_env .env
-
       - name: Add the host key
         run: |
           mkdir -p ~/.ssh/ && echo "${{ secrets.DEPLOY_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
@@ -36,6 +33,8 @@ jobs:
             cd homelab
             # Make sure the install it up to date
             git pull
+            # Make sure the .env is up to date
+            (echo "MY_DOMAIN=${{ secrets.MY_DOMAIN }}\n"; cat .env) > .full_env && mv .full_env .env
             # Reload services
             source ./.scripts/env.sh && docker compose up -d
           EOF
