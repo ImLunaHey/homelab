@@ -37,5 +37,5 @@ jobs:
             (echo "${{ secrets.ENV_FILE }}"; cat .env) > .full_env && mv .full_env .env
             # Reload services with or without the env.sh
             [ -f ./.scripts/env.sh ] && source ./.scripts/env.sh && docker compose up -d
-            [ ! -f ./.scripts/env.sh ] && docker compose up -d
+            [ ! -f ./.scripts/env.sh ] && docker compose up -d || exit 0
           EOF
