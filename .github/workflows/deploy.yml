@@ -16,11 +16,13 @@ jobs:
       - name: Generate env from secrets
         run: (echo "MY_DOMAIN=${{ secrets.MY_DOMAIN }}\n"; cat .env) > .full_env && mv .full_env .env
 
-      - name: Push to server
-        uses: appleboy/ssh-action@master
+      - name: Load private SSH key
+        uses: webfactory/ssh-agent@v0.5.3
         with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USERNAME }}
-          key: ${{ secrets.DEPLOY_SSH_KEY }}
-          port: ${{ secrets.DEPLOY_PORT }}
-          script: cd ${{ secrets.DEPLOY_FILE_PATH }} && (git -C homelab pull || git clone git@github.com:ImLunaHey/homelab.git) && ./.scripts/env.sh && docker compose up -d
+          ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
+
+      - name: Atomic Deploy
+        run: |
+          ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} << EOF
+            cd ${{ secrets.DEPLOY_FILE_PATH }} && (git -C homelab pull || git clone git@github.com:ImLunaHey/homelab.git) && ./.scripts/env.sh && docker compose up -d
+          EOF
