@@ -28,11 +28,12 @@ jobs:
       - name: Atomic Deploy
         run: |
           ssh ${{ secrets.DEPLOY_USERNAME }}@${{ secrets.DEPLOY_HOST }} -p ${{ secrets.DEPLOY_PORT }} << EOF
-            cd ${{ secrets.DEPLOY_FILE_PATH }}
             # On first run clone the repo
             [ ! -d "./homelab" ] && ssh-keyscan -H github.com > ~/.ssh/known_hosts && git clone git@github.com:ImLunaHey/homelab.git homelab
+            # Enter the main directory
+            cd ${{ secrets.DEPLOY_FILE_PATH }} 
             # Make sure the install it up to date
-            git -C homelab pull
+            git pull
             # Reload services
             ./.scripts/env.sh && docker compose up -d
           EOF
