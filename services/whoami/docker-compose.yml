@@ -1,0 +1,8 @@
+services:
+  whoami:
+    image: jwilder/whoami
+    env_file: .env
+    labels:
+      caddy: whoami.$MY_DOMAIN
+      caddy.reverse_proxy: "{{upstreams 8000}}"
+      
