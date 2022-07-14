@@ -16,6 +16,10 @@ jobs:
       - name: Generate env from secrets
         run: (echo "MY_DOMAIN=${{ secrets.MY_DOMAIN }}\n"; cat .env) > .full_env && mv .full_env .env
 
+      - name: Add the host key
+        run: |
+          echo "${{ secrets.DEPLOY_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+
       - name: Load private SSH key
         uses: webfactory/ssh-agent@v0.5.3
         with:
