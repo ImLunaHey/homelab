@@ -25,7 +25,7 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
 
-      - name: Atomic Deploy
+      - name: SSH Deploy
         run: |
           ssh ${{ secrets.DEPLOY_USERNAME }}@${{ secrets.DEPLOY_HOST }} -p ${{ secrets.DEPLOY_PORT }} << EOF
             # Enter the main directory
@@ -37,5 +37,5 @@ jobs:
             # Make sure the install it up to date
             git pull
             # Reload services
-            ./.scripts/env.sh && docker compose up -d
+            source ./.scripts/env.sh && docker compose up -d
           EOF
