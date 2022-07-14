@@ -18,7 +18,7 @@ jobs:
 
       - name: Add the host key
         run: |
-          echo "${{ secrets.DEPLOY_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+          mkdir -p ~/.ssh/ && echo "${{ secrets.DEPLOY_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
 
       - name: Load private SSH key
         uses: webfactory/ssh-agent@v0.5.3
