@@ -1,0 +1,24 @@
+{
+  "name": "homelab",
+  "version": "0.0.1",
+  "description": "Homelab setup",
+  "main": "index.js",
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "husky": "^8.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ImLunaHey/homelab.git"
+  },
+  "author": "ImLunaHey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ImLunaHey/homelab/issues"
+  },
+  "homepage": "https://github.com/ImLunaHey/homelab#readme"
+}
