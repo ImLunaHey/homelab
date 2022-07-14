@@ -35,8 +35,7 @@ jobs:
             git add -A && git reset --hard origin/${{ github.ref_name }} && git pull
             # Make sure the .env is up to date
             (echo "${{ secrets.ENV_FILE }}"; cat .env) > .full_env && mv .full_env .env
-            # If we have an env script run it
-            [ -f ./.scripts/env.sh ] && source ./.scripts/env.sh
-            # Reload services
-            docker compose up -d
+            # Reload services with or without the env.sh
+            [ -f ./.scripts/env.sh ] && source ./.scripts/env.sh && docker compose up -d
+            [ ! -f ./.scripts/env.sh ] && docker compose up -d
           EOF
