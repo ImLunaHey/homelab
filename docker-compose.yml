@@ -5,7 +5,7 @@ services:
     image: lucaslorentz/caddy-docker-proxy:ci-alpine
     container_name: caddy
     hostname: caddy
-    restart: unless-stopped
+    restart: always
     env_file: .env
     ports:
       - '80:80'
